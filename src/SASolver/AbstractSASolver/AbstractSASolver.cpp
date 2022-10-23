@@ -10,16 +10,14 @@ decreaser(std::move(dec)), iteration(), number_or_processors(proc_num), best_sol
 AbstractSASolver::solution_type AbstractSASolver::solve() {
     set_starting_solution();
     set_starting_temperature();
-    while (!solutions.empty()) {
-        for (iteration = 0; stop_criterion(); ++iteration) {
-            if (quality_function(current_solution) < quality_function(best_solution)) {
-                best_solution = current_solution;
-            }
-            solution_type new_solution = get_new_solution();
-            quality_type quality_difference = quality_function(new_solution) - quality_function(current_solution);
-            if (should_visit(quality_difference)) {
-                current_solution = new_solution;
-            }
+    for (iteration = 0; stop_criterion(); ++iteration) {
+        if (quality_function(current_solution) < quality_function(best_solution)) {
+            best_solution = current_solution;
+        }
+        solution_type new_solution = get_new_solution();
+        quality_type quality_difference = quality_function(new_solution) - quality_function(current_solution);
+        if (should_visit(quality_difference)) {
+            current_solution = new_solution;
         }
         decreaser->decrease();
     }
