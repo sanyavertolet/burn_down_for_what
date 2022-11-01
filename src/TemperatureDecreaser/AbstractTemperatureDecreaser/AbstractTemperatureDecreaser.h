@@ -20,6 +20,7 @@ public:
 
     [[nodiscard]] temperature_type get_temperature() const;
 
+    virtual ~AbstractTemperatureDecreaser() = default;
 protected:
     temperature_type temperature;
     iteration_type iteration;

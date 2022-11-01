@@ -7,7 +7,6 @@ set(
         solvers
         src/Randomizer/Randomizer.cpp
         src/Randomizer/Randomizer.h
-        src/SASolver/AbstractSASolver/AbstractSASolver.cpp
         src/SASolver/AbstractSASolver/AbstractSASolver.h
 )
 
@@ -30,4 +29,11 @@ set(
         src/Solution/SchedulingSASolution/SchedulingSASolution.h
 )
 
-add_executable(burn_down_for_what main.cpp ${solvers} ${temperatures} ${solutions})
+set(
+        mutators
+        src/Mutator/AbstractMutator/AbstractMutator.h
+        src/Mutator/SchedulingMutator/SchedulingMutator.h
+        src/Mutator/SchedulingMutator/SchedulingMutator.cpp
+)
+
+add_executable(burn_down_for_what main.cpp ${solvers} ${temperatures} ${solutions} ${mutators})

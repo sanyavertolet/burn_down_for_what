@@ -12,8 +12,10 @@
 #include "../AbstractTemperatureDecreaser/AbstractTemperatureDecreaser.h"
 
 class BoltzmannTemperatureDecreaser: public AbstractTemperatureDecreaser {
+public:
     BoltzmannTemperatureDecreaser();
     explicit BoltzmannTemperatureDecreaser(temperature_type new_temperature, iteration_type iteration);
+
     temperature_type decrease() override;
 };
 

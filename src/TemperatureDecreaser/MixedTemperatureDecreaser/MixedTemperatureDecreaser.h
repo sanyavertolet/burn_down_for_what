@@ -10,6 +10,7 @@
 #include "../AbstractTemperatureDecreaser/AbstractTemperatureDecreaser.h"
 
 class MixedTemperatureDecreaser: public AbstractTemperatureDecreaser {
+public:
     MixedTemperatureDecreaser();
     explicit MixedTemperatureDecreaser(temperature_type new_temperature, iteration_type new_iteration = 0);
 

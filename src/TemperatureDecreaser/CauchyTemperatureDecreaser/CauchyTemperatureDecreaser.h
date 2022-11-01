@@ -8,6 +8,7 @@
 #include "../AbstractTemperatureDecreaser/AbstractTemperatureDecreaser.h"
 
 class CauchyTemperatureDecreaser : public AbstractTemperatureDecreaser {
+public:
     CauchyTemperatureDecreaser();
     explicit CauchyTemperatureDecreaser(temperature_type new_temperature, iteration_type new_iteration = 0);
 
