@@ -2,11 +2,11 @@
  * @author sanyavertolet
  */
 
-#include "SchedulingMutator.h"
+#include "ScheduleMutator.h"
 
 #include "../../Randomizer/Randomizer.h"
 
-SchedulingSASolution SchedulingMutator::mutate(SchedulingSASolution solution) {
+SchedulingSASolution ScheduleMutator::mutate(SchedulingSASolution solution) {
     int n_proc = static_cast<int>(solution.data.size());
     int from;
     do {

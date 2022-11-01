@@ -6,6 +6,7 @@
 #define BURN_DOWN_FOR_WHAT_ABSTRACTSASOLVER_H
 
 #include <memory>
+#include <utility>
 #include <vector>
 #include <type_traits>
 #include <unordered_set>
@@ -28,10 +29,10 @@ public:
     using integer_type = int;
     using probability_type = double;
 
-    using quality_type = long double;
+    using quality_type = int;
 
     explicit AbstractSASolver(): decreaser(TemperatureDecreaser()), mutator(Mutator()), iteration(),
-    best_solution(), current_solution() { }
+    best_solution(), current_solution(best_solution) { }
 
     Solution solve() {
         set_starting_solution();
@@ -73,13 +74,15 @@ protected:
     }
 
     virtual void set_starting_solution() = 0;
-    virtual void set_starting_temperature() = 0;
+
+    virtual void set_starting_temperature() {
+        decreaser = TemperatureDecreaser();
+    }
+
     virtual bool stop_criterion() = 0;
+    virtual quality_type quality_function(const Solution& solution) = 0;
 
     integer_type iteration;
-//    integer_type number_or_processors;
-    std::vector<integer_type> job_duration;
-    virtual quality_type quality_function(Solution solution) = 0;
 
     Solution best_solution;
     Solution current_solution;

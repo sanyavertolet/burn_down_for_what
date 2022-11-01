@@ -14,16 +14,15 @@ public:
     AbstractTemperatureDecreaser();
     explicit AbstractTemperatureDecreaser(temperature_type new_temperature, iteration_type new_iteration = 0);
 
-    temperature_type operator()();
+    temperature_type operator()(iteration_type iteration);
 
-    virtual temperature_type decrease() = 0;
+    virtual temperature_type decrease(iteration_type iteration) = 0;
 
     [[nodiscard]] temperature_type get_temperature() const;
 
     virtual ~AbstractTemperatureDecreaser() = default;
 protected:
     temperature_type temperature;
-    iteration_type iteration;
 };
 
 
