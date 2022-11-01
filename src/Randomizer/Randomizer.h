@@ -12,19 +12,14 @@ class Randomizer {
 public:
     Randomizer(Randomizer const&) = delete;
     Randomizer& operator=(Randomizer const&) = delete;
-
-    double randomize() {
-        return dis(generator);
-    }
-
+    double randomize(double from = 0.0, double to = 1.0);
+    double randomize(std::uniform_real_distribution<> dis);
     static Randomizer& get_randomizer();
 private:
-    Randomizer* randomizer;
+    Randomizer();
     std::random_device device;
     std::mt19937::result_type seed;
     std::mt19937 generator;
-    std::uniform_real_distribution<> dis;
-    Randomizer();
 };
 
 

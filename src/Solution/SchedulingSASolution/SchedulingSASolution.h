@@ -13,11 +13,15 @@
 
 class SchedulingSASolution: public AbstractSASolution {
 public:
-    SchedulingSASolution();
-    std::string get_solution();
+    using ir_type = std::vector<std::vector<int>>;
+
+    explicit SchedulingSASolution(int n_proc);
+    explicit SchedulingSASolution(ir_type new_solution);
+
+    ir_type data;
+    operator std::string() override; // NOLINT(google-explicit-constructor)
 private:
-    using ir_type = std::vector<std::unordered_set<int>>;
-    ir_type solution;
+
 };
 
 

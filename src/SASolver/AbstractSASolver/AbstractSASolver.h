@@ -58,11 +58,13 @@ public:
         return best_solution;
     }
 
+    virtual ~AbstractSASolver() = default;
+protected:
     bool should_visit(quality_type quality_difference) {
         return get_random_number() <= probability(quality_difference);
     }
 
-    probability_type probability(AbstractSASolver::quality_type quality_difference) {
+    probability_type probability(quality_type quality_difference) {
         if (quality_difference <= 0) {
             return 1;
         } else {
@@ -70,18 +72,10 @@ public:
         }
     }
 
-    virtual Solution get_new_solution() {
-        return mutator.mutate(current_solution);
-    }
-
     virtual void set_starting_solution() = 0;
-
     virtual void set_starting_temperature() = 0;
-
     virtual bool stop_criterion() = 0;
 
-    virtual ~AbstractSASolver() = default;
-protected:
     integer_type iteration;
 //    integer_type number_or_processors;
     std::vector<integer_type> job_duration;
@@ -95,6 +89,10 @@ protected:
 private:
     static probability_type get_random_number() {
         return Randomizer::get_randomizer().randomize();
+    }
+
+    Solution get_new_solution() {
+        return mutator.mutate(current_solution);
     }
 };
 

@@ -4,12 +4,20 @@
 
 #include "Randomizer.h"
 
-Randomizer::Randomizer(): device(), randomizer(),
+Randomizer::Randomizer(): device(),
 seed(device() ^ ((std::mt19937::result_type) std::chrono::duration_cast<std::chrono::seconds>(
         std::chrono::system_clock::now().time_since_epoch()
         ).count() + (std::mt19937::result_type)std::chrono::duration_cast<std::chrono::microseconds>(
                 std::chrono::high_resolution_clock::now().time_since_epoch()
-                ).count())), generator(seed), dis(0.0, 1.0) { }
+                ).count())), generator(seed) { }
+
+double Randomizer::randomize(double from, double to) {
+    return randomize(std::uniform_real_distribution<>(from, to));
+}
+
+double Randomizer::randomize(std::uniform_real_distribution<> dis) {
+    return dis(generator);
+}
 
 Randomizer& Randomizer::get_randomizer() {
     static Randomizer randomizer;
