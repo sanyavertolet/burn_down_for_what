@@ -15,6 +15,10 @@ double Randomizer::randomize(double from, double to) {
     return randomize(std::uniform_real_distribution<>(from, to));
 }
 
+int Randomizer::randomize(int from, int to) {
+    return std::floor(std::abs(randomize(1.0 * from, 1.0 * to)));
+}
+
 double Randomizer::randomize(std::uniform_real_distribution<> dis) {
     return dis(generator);
 }

@@ -8,7 +8,9 @@
 #include <string>
 
 class AbstractSASolution {
+public:
     virtual operator std::string() = 0; // NOLINT(google-explicit-constructor)
+    virtual ~AbstractSASolution() = default;
 };
 
 

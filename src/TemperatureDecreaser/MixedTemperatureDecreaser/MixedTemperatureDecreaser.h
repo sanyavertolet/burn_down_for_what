@@ -14,7 +14,7 @@ public:
     MixedTemperatureDecreaser();
     explicit MixedTemperatureDecreaser(temperature_type new_temperature, iteration_type new_iteration = 0);
 
-    temperature_type decrease() override;
+    temperature_type decrease(iteration_type iteration) override;
 };
 
 

@@ -16,7 +16,7 @@ public:
     BoltzmannTemperatureDecreaser();
     explicit BoltzmannTemperatureDecreaser(temperature_type new_temperature, iteration_type iteration);
 
-    temperature_type decrease() override;
+    temperature_type decrease(iteration_type iteration) override;
 };
 
 

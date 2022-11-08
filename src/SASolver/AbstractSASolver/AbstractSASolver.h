@@ -29,16 +29,16 @@ public:
     using integer_type = int;
     using probability_type = double;
 
-    using quality_type = int;
+    using quality_type = long long;
 
-    explicit AbstractSASolver(): decreaser(TemperatureDecreaser()), mutator(Mutator()), iteration(),
-    best_solution(), current_solution(best_solution) { }
+    explicit AbstractSASolver(int n_proc, int n_jobs): decreaser(TemperatureDecreaser()), mutator(Mutator()), iteration(),
+    best_solution(n_proc, n_jobs), current_solution(best_solution) { }
 
-    Solution solve() {
+    std::pair<Solution, quality_type> solve() {
         set_starting_solution();
         set_starting_temperature();
-        for (iteration = 0; stop_criterion(); ++iteration) {
-            decreaser->decrease();
+        for (iteration = 0; !stop_criterion(); ++iteration) {
+            decreaser.decrease(iteration);
             for (integer_type index = 0; index < 10; ++index) {
                 Solution new_solution = get_new_solution();
                 quality_type quality_difference = quality_function(new_solution) - quality_function(current_solution);
@@ -56,7 +56,8 @@ public:
                 }
             }
         }
-        return best_solution;
+
+        return {best_solution, quality_function(best_solution)};
     }
 
     virtual ~AbstractSASolver() = default;
@@ -69,7 +70,7 @@ protected:
         if (quality_difference <= 0) {
             return 1;
         } else {
-            return static_cast<double>(exp(-quality_difference / decreaser->get_temperature()));
+            return static_cast<double>(exp(-quality_difference / decreaser.get_temperature()));
         }
     }
 
@@ -91,7 +92,7 @@ protected:
     TemperatureDecreaser decreaser;
 private:
     static probability_type get_random_number() {
-        return Randomizer::get_randomizer().randomize();
+        return Randomizer::get_randomizer().randomize(0.0, 1.0);
     }
 
     Solution get_new_solution() {

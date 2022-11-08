@@ -10,7 +10,7 @@ MixedTemperatureDecreaser::MixedTemperatureDecreaser(MixedTemperatureDecreaser::
                                                      MixedTemperatureDecreaser::iteration_type new_iteration)
         : AbstractTemperatureDecreaser(new_temperature, new_iteration) { }
 
-MixedTemperatureDecreaser::temperature_type MixedTemperatureDecreaser::decrease() {
+MixedTemperatureDecreaser::temperature_type MixedTemperatureDecreaser::decrease(iteration_type iteration) {
     temperature = log (iteration + 1) / (iteration + 1) * temperature;
     ++iteration;
     return temperature;

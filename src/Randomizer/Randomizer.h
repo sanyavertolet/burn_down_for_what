@@ -12,6 +12,7 @@ class Randomizer {
 public:
     Randomizer(Randomizer const&) = delete;
     Randomizer& operator=(Randomizer const&) = delete;
+    int randomize(int from = 0, int to = 1);
     double randomize(double from = 0.0, double to = 1.0);
     double randomize(std::uniform_real_distribution<> dis);
     static Randomizer& get_randomizer();

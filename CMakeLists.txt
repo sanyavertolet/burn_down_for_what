@@ -5,8 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(
         solvers
-        src/Randomizer/Randomizer.cpp
-        src/Randomizer/Randomizer.h
         src/SASolver/AbstractSASolver/AbstractSASolver.h
         src/SASolver/ScheduleSASolver/ScheduleSASolver.h)
 
@@ -30,10 +28,18 @@ set(
 )
 
 set(
+        randomizer
+        src/Randomizer/Randomizer.cpp
+        src/Randomizer/Randomizer.h
+)
+
+set(
         mutators
         src/Mutator/AbstractMutator/AbstractMutator.h
         src/Mutator/ScheduleMutator/ScheduleMutator.h
         src/Mutator/ScheduleMutator/ScheduleMutator.cpp
 )
 
-add_executable(burn_down_for_what main.cpp ${solvers} ${temperatures} ${solutions} ${mutators})
+add_executable(burn_down_for_what main.cpp ${solvers} ${temperatures} ${solutions} ${mutators} ${randomizer} src/Parser.cpp src/Timer.h)
+
+add_executable(generator src/Generator.cpp ${randomizer})

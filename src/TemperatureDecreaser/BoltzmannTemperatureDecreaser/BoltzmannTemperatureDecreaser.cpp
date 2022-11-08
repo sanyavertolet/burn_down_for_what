@@ -13,6 +13,6 @@ BoltzmannTemperatureDecreaser::BoltzmannTemperatureDecreaser(
         BoltzmannTemperatureDecreaser::iteration_type iteration) : AbstractTemperatureDecreaser(new_temperature,
                                                                                                iteration) { }
 
-BoltzmannTemperatureDecreaser::temperature_type BoltzmannTemperatureDecreaser::decrease() {
+BoltzmannTemperatureDecreaser::temperature_type BoltzmannTemperatureDecreaser::decrease(iteration_type iteration) {
     return (temperature = temperature / log(iteration++ + 1));
 }

@@ -4,7 +4,7 @@
 
 #include "AbstractTemperatureDecreaser.h"
 
-AbstractTemperatureDecreaser::AbstractTemperatureDecreaser(): temperature(1.0) { }
+AbstractTemperatureDecreaser::AbstractTemperatureDecreaser(): temperature(10.0) { }
 AbstractTemperatureDecreaser::AbstractTemperatureDecreaser(temperature_type new_temperature, iteration_type new_iteration):
 temperature(new_temperature) { }
 
