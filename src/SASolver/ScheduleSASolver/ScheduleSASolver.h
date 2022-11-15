@@ -8,6 +8,7 @@
 #include <utility>
 #include <thread>
 #include <mutex>
+#include <cassert>
 
 #include "../AbstractSASolver/AbstractSASolver.h"
 #include "../../Solution/ScheduleSASolution/ScheduleSASolution.h"
