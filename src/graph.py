@@ -60,15 +60,24 @@ def show_plot(data_list, show_quality = False):
     plt.show()
 
 
-if __name__ == "__main__":
+def get_files(is_parallel):
     project_dir = os.path.join(os.getcwd(), os.path.pardir)
     csv_path = os.path.join(project_dir, "cmake-build-debug")
-    boltzmann = os.path.join(csv_path, "boltzmann.csv")
-    cauchy = os.path.join(csv_path, "cauchy.csv")
-    mixed = os.path.join(csv_path, "mixed.csv")
+    boltzmann = os.path.join(csv_path, "boltzmann.csv" if not is_parallel else "boltzmann-parallel.csv")
+    cauchy = os.path.join(csv_path, "cauchy.csv" if not is_parallel else "cauchy-parallel.csv")
+    mixed = os.path.join(csv_path, "mixed.csv" if not is_parallel else "mixed-parallel.csv")
+    return boltzmann, cauchy, mixed
+
+
+def main():
+    boltzmann, cauchy, mixed = get_files(True)
 
     b_time, b_quality = read_from_csv(boltzmann)
     c_time, c_quality = read_from_csv(cauchy)
     m_time, m_quality = read_from_csv(mixed)
 
     show_plot([[b_time, b_quality], [c_time, c_quality], [m_time, m_quality]])
+
+
+if __name__ == "__main__":
+    main()

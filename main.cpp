@@ -97,9 +97,9 @@ void multi_threaded_run(int n_threads) {
 
     std::string dirname = "csv";
 
-    std::string boltzmann_report_file_name = "boltzmann.csv";
-    std::string cauchy_report_file_name = "cauchy.csv";
-    std::string mixed_report_file_name = "mixed.csv";
+    std::string boltzmann_report_file_name = "boltzmann-parallel.csv";
+    std::string cauchy_report_file_name = "cauchy-parallel.csv";
+    std::string mixed_report_file_name = "mixed-parallel.csv";
 
     std::ofstream boltzmann(boltzmann_report_file_name);
     std::ofstream cauchy(cauchy_report_file_name);
