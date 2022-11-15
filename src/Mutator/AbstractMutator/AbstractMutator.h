@@ -14,7 +14,7 @@ class AbstractMutator {
     static_assert(std::is_base_of<AbstractSASolution, Solution>::value, "Solution should inherit AbstractSASolution");
 public:
     virtual Solution mutate(Solution solution) = 0;
-    virtual ~Solution() = default;
+    virtual ~AbstractMutator() = default;
 };
 
 

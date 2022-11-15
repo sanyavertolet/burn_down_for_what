@@ -6,6 +6,7 @@
 #define BURN_DOWN_FOR_WHAT_TIMER_H
 
 #include <chrono>
+#include <cassert>
 
 template <class DT = std::chrono::milliseconds, class ClockT = std::chrono::steady_clock>
 class Timer {
