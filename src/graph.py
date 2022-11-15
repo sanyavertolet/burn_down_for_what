@@ -21,6 +21,18 @@ def read_from_csv(filepath):
     print(quality)
     return time, quality
 
+def read_from_csv_for_research(filepath):
+    shape = 8
+    raw_data = pd.read_csv(filepath, sep=',', header=None).to_numpy()
+
+    time = numpy.zeros(shape)
+
+    for i in range(len(raw_data)):
+        item = raw_data[i]
+        time[int(item[2]) - 1] = item[3]
+
+    return time
+
 
 def show_plot(data_list, show_quality = False):
     x_tick_labels = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800,
@@ -69,7 +81,16 @@ def get_files(is_parallel):
     return boltzmann, cauchy, mixed
 
 
-def main():
+def get_files_research():
+    project_dir = os.path.join(os.getcwd(), os.path.pardir)
+    csv_path = os.path.join(project_dir, "cmake-build-debug")
+    boltzmann = os.path.join(csv_path, "boltzmann-research.csv")
+    cauchy = os.path.join(csv_path, "cauchy-research.csv")
+    mixed = os.path.join(csv_path, "mixed-research.csv")
+    return boltzmann, cauchy, mixed
+
+
+def heatmaps():
     boltzmann, cauchy, mixed = get_files(True)
 
     b_time, b_quality = read_from_csv(boltzmann)
@@ -79,5 +100,29 @@ def main():
     show_plot([[b_time, b_quality], [c_time, c_quality], [m_time, m_quality]])
 
 
+def graph():
+    boltzmann, cauchy, mixed = get_files_research()
+    b_time = read_from_csv_for_research(boltzmann)
+    c_time = read_from_csv_for_research(cauchy)
+    m_time = read_from_csv_for_research(mixed)
+
+    fig, axs = plt.subplots(3, 1)
+    axs[0].set_title("Boltzmann")
+    axs[0].plot([1, 2, 3, 4, 5, 6, 7, 8], b_time)
+    axs[1].set_title("Cauchy")
+    axs[1].plot([1, 2, 3, 4, 5, 6, 7, 8], c_time)
+    axs[2].set_title("Mixed")
+    axs[2].plot([1, 2, 3, 4, 5, 6, 7, 8], m_time)
+
+    # plt.plot([1, 2, 3, 4, 5, 6, 7, 8], b_time)
+    plt.show()
+
+def main(is_heatmap):
+    if is_heatmap:
+        heatmaps()
+    else:
+        graph()
+
+
 if __name__ == "__main__":
-    main()
+    main(False)

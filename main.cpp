@@ -55,7 +55,7 @@ void multi_read_run_and_save_results(const std::string& filename, std::ofstream&
         sum_quality += quality;
         duration += timer.template duration().count();
     }
-    out << n_proc << "," << n_jobs << "," << static_cast<long double>(duration) / (long double)(5.0) << "," << sum_quality / 5.0 << std::endl;
+    out << n_proc << "," << n_jobs << "," << n_threads << "," <<  static_cast<long double>(duration) / (long double)(5.0) << "," << sum_quality / 5.0 << std::endl;
 }
 
 void single_threaded_run() {
@@ -130,7 +130,27 @@ int main(int argc, char** argv) {
     } else if (argc == 3 && std::string(argv[1]) == "-t") {
         int n_threads = std::stoi(std::string(argv[2]));
         multi_threaded_run(n_threads);
-    } else {
+    } else if (argc == 2 && std::string(argv[1]) == "-r") {
+        std::string filename = "csv/10_1000.csv";
+        std::ofstream boltzmann("boltzmann-research.csv");
+        for (int i = 1; i <= std::thread::hardware_concurrency(); ++i) {
+            multi_read_run_and_save_results<BoltzmannTemperatureDecreaser>(filename, boltzmann, i);
+        }
+        boltzmann.close();
+
+        std::ofstream cauchy("cauchy-research.csv");
+        for (int i = 1; i <= std::thread::hardware_concurrency(); ++i) {
+            multi_read_run_and_save_results<CauchyTemperatureDecreaser>(filename, cauchy, i);
+        }
+        cauchy.close();
+
+        std::ofstream mixed("mixed-research.csv");
+        for (int i = 1; i <= std::thread::hardware_concurrency(); ++i) {
+            multi_read_run_and_save_results<MixedTemperatureDecreaser>(filename, mixed, i);
+        }
+        mixed.close();
+    }
+    else {
         std::cerr << "Usage: burn_down_for_what [-t NUM]" << std::endl;
     }
 
